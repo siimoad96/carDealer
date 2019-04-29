@@ -57,8 +57,6 @@ class AnnoncesController extends Controller
 
         public function resultat(Request $request)
     {
-
-
         $request->input('marque');
         $annonces = DB::table('annonces')->where([
                         ['city', '=', $request->input('ville')],

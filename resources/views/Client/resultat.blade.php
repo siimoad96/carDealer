@@ -7,8 +7,6 @@
 
             <h3>Les annonces disponibles </h3><br><br>
                 </div>
-
-                
             <form type="POST" action="/Client/reserverAnnonce">
 
                 @foreach($annonces as $annonce)
