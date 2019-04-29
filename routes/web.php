@@ -86,8 +86,12 @@ Route::get('/Client/recherche', 'PagesController@recherche');
 Route::get('/Client/recherche', 'AnnoncesController@recherche');
 Route::post('/Client/recherche', 'AnnoncesController@recherche');
 
-Route::get('/Client/resultat', 'PagesController@resultat');
-Route::get('/Client/resultat', 'AnnoncesController@resultat');
+
+Route::get('/Client/rechercheDate', 'AnnoncesController@rechercheDate');
+Route::post('/Client/rechercheDate', 'AnnoncesController@rechercheDate');
+
+
+Route::any('/Client/resultat', 'AnnoncesController@resultat');
 Route::post('/Client/resultat', 'AnnoncesController@resultat');
 
 
