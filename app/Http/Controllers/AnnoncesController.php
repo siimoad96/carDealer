@@ -12,6 +12,7 @@ use Auth;
 use App\User;
 class AnnoncesController extends Controller
 {
+    
 /*
     public function recherche()
     {
@@ -92,8 +93,9 @@ public function reserverAnnonce(Request $request)
     
     public function ajoutannonce()
     {
-        $voiture =Voiture::where('partenaire_id',Auth::id())->first();
-        $voitures = Voiture::orderBy('immatricule','ASC')->get();
+        $id = Auth::id();
+        $voiture =Voiture::where('partenaire_id','=', Auth::id() );
+        $voitures = $voiture->get();
         $ville = User::select('city')->groupBy('city');
        $villes = $ville->get();
         $title = 'Ajouter une annonce';

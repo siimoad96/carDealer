@@ -30,8 +30,10 @@ class HomeController extends Controller
     public function index()
     {
 
-        if (Auth::user()->privilege == 0) 
-            return view("Client.accueil");
+        if (Auth::user()->privilege == 0)
+        {$annonces = DB::table('annonces')->get(); 
+
+            return view( 'Client.accueil')->with(compact('annonces',$annonces));}
         elseif ( Auth::user()->privilege == 1) {
             return view("Partenaire.accueil");
         }
@@ -39,10 +41,10 @@ class HomeController extends Controller
             return view("Admin.accueil");    }
 
 
-    public function accueilClient()
+   /* public function accueilClient()
     {
         $annonces = DB::table('annonces')->get();
         return View::make( 'Client.accueil', ['annonces' => $annonces]);
-    }
+    }*/
     
 }
