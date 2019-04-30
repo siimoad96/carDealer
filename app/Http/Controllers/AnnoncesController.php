@@ -37,11 +37,37 @@ class AnnoncesController extends Controller
 
     public function recherche()
     {
+        $annonce =Annonce::where([
+            ['privilege', '=', 0],
+             ]);
+        $annonces = DB::table('annonces')
+                ->groupBy('date')
+                ->get();
 
-        return view('Client.recherche');
+        return view('Client.recherche')->with('annonces',$annonces);
 
     }
 
+    
+    function fetch(Request $request)
+    {
+        $select = $request->get('select');
+        $value = $request->get('value');
+        $dependent = $request->get('dependent');
+        $data = DB::table('annonces')
+        ->join('voitures', 'annonces.voiture_id', '=', 'voitures.id')
+        ->where($select, $value)
+        ->groupBy($dependent)
+        ->get();
+        $output = '<option value="">Select '.ucfirst($dependent).'</option>';
+        foreach($data as $row)
+        {
+        $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
+        }
+        echo $output;
+        }
+
+/*
     public function rechercheDate(Request $request)
         {
           
@@ -87,6 +113,10 @@ class AnnoncesController extends Controller
                 ->with(compact('modeles','modele'))
                 ->with(compact('types','type'));
         }
+*/
+
+
+
 
         public function resultat(Request $request)
     {
@@ -97,6 +127,8 @@ class AnnoncesController extends Controller
                      ])->get();
  
          return view('Client.resultat',['annonces' => $annonces]);
+
+        }
         /*
         $annonces = DB::table('annonces')
         
@@ -113,7 +145,7 @@ class AnnoncesController extends Controller
     
             return view('Client.resultat',['annonces' => $annonces]);
         }
-    */}
+    */
 public function reserverAnnonce(Request $request)
         {
             $reservations = DB::table('annonces')
