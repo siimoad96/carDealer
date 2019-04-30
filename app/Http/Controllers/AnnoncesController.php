@@ -13,6 +13,38 @@ use App\User;
 class AnnoncesController extends Controller
 {
 
+    
+    public function recherche(){
+
+        
+        $annonce =Annonce::where([
+            ['privilege', '=', 0],
+             ]);
+        $annonces = DB::table('annonces')
+                ->groupBy('date')
+                ->get();
+        return view('Client.recherche')->with('annonces',$annonces);
+
+      }
+  
+      public function city(){
+        $date = Input::get('date');
+        $city = Annonce::where('date', '=', $date)->get();
+        return response()->json($city);
+      }
+  
+      public function districts(){
+        $city = Input::get('city');
+        $districts = Districts::where('regency_id', '=', $regencies_id)->get();
+        return response()->json($districts);
+      }
+  
+      public function villages(){
+        $districts_id = Input::get('districts_id');
+        $villages = Villages::where('district_id', '=', $districts_id)->get();
+        return response()->json($villages);
+      }
+
     /*
     public function resultat(Request $request)
     {
@@ -32,7 +64,7 @@ class AnnoncesController extends Controller
             //return view('Client.reserverAnnonce');
 
         }
-*/
+
 
 
     public function recherche()
