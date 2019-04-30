@@ -31,10 +31,14 @@ Route::post('/Partenaire/ajoutannonce', 'AnnoncesController@ajoutannonceSuccess'
 Route::get('/Client/recherche', 'AnnoncesController@recherche');
 Route::post('/Client/recherche', 'AnnoncesController@recherche');
 Route::post('/Client/recherche', 'AnnoncesController@fetch')->name('recherche.fetch');
+Route::post('/Client/recherche/fetch', 'AnnoncesController@fetch')->name('dynamicdependent.fetch');
+
+Route::get('/Client/json-city','AnnoncesController@city');
+
 
 
 Route::get('/Client/rechercheDate', 'AnnoncesController@rechercheDate');
-Route::post('/Client/rechercheDate', 'AnnoncesController@rechercheDate');
+Route::post('/Client/rechercheDate',  'AnnoncesController@rechercheDate');
 
 Route::get('/Client/resultat', 'AnnoncesController@resultat');
 Route::post('/Client/resultat', 'AnnoncesController@resultat');
