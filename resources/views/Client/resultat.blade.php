@@ -7,10 +7,7 @@
 
             <h3>Les annonces disponibles </h3><br><br>
                 </div>
-
-            <form method="POST" action="/Client/reserverAnnonce">
-                    {{ csrf_field() }}
-                    {{ method_field('patch') }}
+            <form type="POST" action="/Client/reserverAnnonce">
 
                 @foreach($annonces as $annonce)
                 <input type="hidden" name="voiture_id" value='{{$annonce->voiture_id}}'>

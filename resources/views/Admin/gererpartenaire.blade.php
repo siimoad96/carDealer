@@ -25,7 +25,7 @@
                         <td>{{ $partenaire->email }}</td>
                         <td>{{ $partenaire->city }}</td>
                         <td>{{ $partenaire->tel }}</td>
-                        <td>Modifier</td>
+       <td><a href="{{ URL::action('UsersController@editPartenaire', $partenaire->id) }}" class="button">Modifier</a></td>                     
                         <td>Supprimer</td>
 
 

@@ -42,17 +42,6 @@ class PagesController extends Controller
         return view('Admin.accueil')->with('title', $title);;
     }
 
-    public function gererclient()
-    {
-        $title = 'Liste des Clients';
-        return view('Admin.gererclient')->with('title', $title);;
-    }
-
-    public function gererpartenaire()
-    {
-        $title = 'Liste des Partenaires';
-        return view('Admin.gererpartenaire')->with('title', $title);;
-    }
 
     public function gererpannonce()
     {
@@ -60,32 +49,11 @@ class PagesController extends Controller
         return view('Admin.gererpannonce')->with('title', $title);;
     }
 
-
-    public function profilAdmin()
+    public function accueilClient()
     {
-        $title = 'Mon Profil';
-        return view('Admin.profil')->with('title', $title);;
-    }
-
-
-
-    // Client
-    public function client()
-    {
-        $title = '';
-        return view('Client.accueil')->with('title', $title);;
-    }
-
-    public function profil()
-    {
-        $title = 'Mon Profil';
-        return view('Client.profil')->with('title', $title);;
-    }
-
-    public function modifierprofil()
-    {
-        $title = 'Modifier mon profil ';
-        return view('Client.modifierprofil')->with('title', $title);;
+        $annonces = Annonce::all();
+        $annonce = $annonces->get();
+        return view('Client.accueil')->with(compact('annonce', $annonces));
     }
 
     public function recherche()
@@ -109,14 +77,6 @@ class PagesController extends Controller
         return view('Partenaire.accueil')->with('title', $title);;
     }
 
-    public function ajoutvoiture()
-    {
-        $title = 'Ajouter une voiture';
-        return view('Partenaire.ajoutvoiture')->with('title', $title);
-    }
-
-
-
     public function ajoutannonce()
     {
         $voiture =Voiture::where('partenaire_id',Auth::id());
@@ -132,29 +92,5 @@ class PagesController extends Controller
     }
 
 
-    public function profilPartenaire()
-    {
-        $title = 'Mon profil';
-        return view('Partenaire.profil')->with('title', $title);
-    }
 
-
-    public function modifierPartenaire()
-    {
-        $title = 'Modification de profil';
-        return view('Partenaire.modifierprofil')->with('title', $title);
-    }
-
-
-    /*public function register()
-    {
-        $title = 'Sign Up';
-        return view('auth.register')->with('title', $title);
-    }
-
-    public function login()
-    {
-        $title = 'Login';
-        return view('auth.login')->with('title', $title);
-    }*/
 }

@@ -25,11 +25,11 @@
                         <td>{{ $client->email }}</td>
                         <td>{{ $client->city }}</td>
                         <td>{{ $client->tel }}</td>
-                        <td>Modifier</td>
-                        <td>Supprimer</td>
-
-
-                    </tr>
+       <td><a href="{{ URL::action('UsersController@editClient', $client->id) }}" class="button">Modifier</a></td>
+       <form method = 'DELETE' action="URL::action('UsersController@deleteClient')">
+        <td><a href="{{ , $client->id) }}" class="button">Supprimer</a></td>                                      
+       </form>
+    </tr>
                     @endforeach
                     </table>
                   

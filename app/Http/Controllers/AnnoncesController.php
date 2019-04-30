@@ -88,6 +88,21 @@ class AnnoncesController extends Controller
                 ->with(compact('types','type'));
         }
 
+        public function resultat(Request $request)
+    {
+        $request->input('marque');
+        $annonces = DB::table('annonces')->where([
+                        ['city', '=', $request->input('ville')],
+                        ['date', '=', $request->input('date')],
+                     ])->get();
+ 
+         return view('Client.resultat',['annonces' => $annonces]);
+        /*
+        $annonces = DB::table('annonces')
+        
+        ->orwhere('city', '=', $request->input('ville'))
+        ->orWhere('voiture_id', $request->input('voiture_id'))
+        ->get();
 
     public function resultat(Request $request)
         {
@@ -98,7 +113,7 @@ class AnnoncesController extends Controller
     
             return view('Client.resultat',['annonces' => $annonces]);
         }
-
+    */}
 public function reserverAnnonce(Request $request)
         {
             $reservations = DB::table('annonces')

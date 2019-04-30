@@ -70,9 +70,15 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editClient($id)
     {
-        //
+        $client = User::where('id', $id)->firstOrFail();
+        return view('Admin.modifierClient', compact('client'));
+    }
+    public function editPartenaire($id)
+    {
+        $partenaire = User::where('id', $id)->firstOrFail();
+        return view('Admin.modifierPartenaire', compact('partenaire'));
     }
 
     /**
@@ -82,9 +88,24 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateUser(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'              =>  'required',
+            'city'              =>  'required',
+            'tel'              =>  'required',
+            'email'              =>  'required',
+
+        ]);
+        $user = User::where('id', $id)->firstOrFail(); /* trouve l'entrée en DB */
+        $user->name = $request->input('name');
+        $user->city = $request->input('city');
+        $user->tel = $request->input('tel');
+        $user->email = $request->input('email');
+        $user->save();
+
+
+        return redirect()->back()->with(['status' => 'Client updated successfully.']); /* redirige vers la vue d'édition */
     }
 
     /**
@@ -96,6 +117,10 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function deleteClient($id){
+        User::destroy($id);
+        return redirect()->back()->with(['status' => 'User deleted successfully.']);;
     }
     //lister les villes existantes
     public function ville()

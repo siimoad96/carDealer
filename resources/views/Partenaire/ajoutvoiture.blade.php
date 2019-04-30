@@ -7,8 +7,10 @@
 
                 <div class="container">
                         <h1>Ajouter une  voiture a louer :</h1> <br>
-                    <form method="POST" action="/Partenaire/ajoutvoiture" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('voiture.add') }}" enctype="multipart/form-data">
                         {{csrf_field()}}
+                        <input  type="file" class="form-control" name="car_image">
+                        <br><br>
                         <input type="text" class="form-control" placeholder="Marque" name = "marque">
                         <br><br>
                         <input type="text" class="form-control" placeholder="type" name = "type">

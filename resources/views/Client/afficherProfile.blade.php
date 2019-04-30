@@ -1,4 +1,4 @@
-@extends('layouts.partenaire')
+@extends('layouts.client')
 
 
 @section('content')
@@ -37,7 +37,7 @@
                   </tr>
         </table>
 
-      <a href="{{route('profile_partenaire.update')}}" class="btn btn-lg btn-info"> Modifier </a>
+      <a href="{{route('profile_client.update')}}" class="btn btn-lg btn-info"> Modifier </a>
     </div>
   </div>
 </div>
