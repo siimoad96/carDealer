@@ -28,27 +28,13 @@ Route::post('/Partenaire/ajoutvoiture/update', 'VoituresController@ajoutVoitureS
 Route::get('/Partenaire/ajoutannonce', 'AnnoncesController@ajoutannonce');
 Route::post('/Partenaire/ajoutannonce', 'AnnoncesController@ajoutannonceSuccess');
 
-Route::get('/Client/recherche', 'AnnoncesController@date');
-Route::get('/Client/recherche', 'AnnoncesController@date');
+Route::get('/Client/recherche', 'AnnoncesController@recherche');
+Route::post('/Client/recherche', 'AnnoncesController@recherche');
 
-Route::post('/Client/recherche', 'AnnoncesController@date');
-
-Route::get('/Client/city','AnnoncesController@city');
-Route::get('/Client/marque','AnnoncesController@marque');
-Route::get('/Client/type','AnnoncesController@type');
-Route::get('/Client/modele','AnnoncesController@modele');
-//Route::get('/Client/submit','AnnoncesController@submit');
-Route::get('/Client/resultat','AnnoncesController@submit');
-
-
-
-
-
-/*
 
 Route::get('/Client/rechercheDate', 'AnnoncesController@rechercheDate');
 Route::post('/Client/rechercheDate',  'AnnoncesController@rechercheDate');
-*/
+
 Route::get('/Client/resultat', 'AnnoncesController@resultat');
 Route::post('/Client/resultat', 'AnnoncesController@resultat');
 

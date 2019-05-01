@@ -6,7 +6,7 @@
         <div >
 
             <h3>Veuillez remplire les champs</h3><br><br>
-                <form action=""  method="POST">
+                <form action="/Client/resultat"  method="POST">
                 {{ csrf_field() }}
                 {{ method_field('patch') }}
 
@@ -19,6 +19,7 @@
 
                     <label for="type">Ville</label>
                     <select type="text" class="form-group" name = "ville" required=required>
+                        <option selected=true>Selectionner une ville</option>
                         @foreach($villes as $ville)
 
                             <option>{{$ville->city}}</option>
@@ -30,6 +31,8 @@
                 <div class="form-group">
                     <label for="type">Marque</label>
                     <select type="text" class="form-group" name = "marque">
+                    <option selected=true>Selectionner une marque</option>
+
                         @foreach($marques as $marque)
 
                             <option>{{$marque->marque }}</option>
@@ -40,6 +43,8 @@
                 <div class="form-group">
                     <label for="type">Type</label>
                     <select type="text" class="form-group" name = "type">
+                    <option selected=true>Selectionner un type</option>
+
                         @foreach($types as $type)
 
                             <option>{{$type->type }}</option>
@@ -50,6 +55,8 @@
                 <div class="form-group">
                     <label for="type">Modele</label>
                     <select type="text" class="form-group" name = "modele">
+                    <option selected=true>Selectionner un modele</option>
+
                         @foreach($modeles as $modele)
 
                             <option>{{$modele->modele }}</option>
