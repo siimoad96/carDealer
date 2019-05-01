@@ -6,7 +6,7 @@
         <div >
 
             <h3>Veuillez remplire les champs</h3><br><br>
-                <form action="/Client/resultat"  method="POST">
+                <form action=""  method="POST">
                 {{ csrf_field() }}
                 {{ method_field('patch') }}
 

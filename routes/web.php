@@ -13,7 +13,7 @@ Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
 Route::get('/Client/recherche', 'PagesController@recherche');
-Route::get('/Client/resultat', 'PagesController@resultat');
+Route::any('/Client/resultat', 'PagesController@resultat');
 Route::get( '/Admin/accueil', 'PagesController@accueil');
 Route::get('/Admin/gererpannonce', 'PagesController@gererpannonce');
 Route::get('/Partenaire/listereservations', 'PagesController@listereservations');
@@ -28,18 +28,27 @@ Route::post('/Partenaire/ajoutvoiture/update', 'VoituresController@ajoutVoitureS
 Route::get('/Partenaire/ajoutannonce', 'AnnoncesController@ajoutannonce');
 Route::post('/Partenaire/ajoutannonce', 'AnnoncesController@ajoutannonceSuccess');
 
-Route::get('/Client/recherche', 'AnnoncesController@recherche');
-Route::post('/Client/recherche', 'AnnoncesController@recherche');
-Route::post('/Client/recherche', 'AnnoncesController@fetch')->name('recherche.fetch');
-Route::post('/Client/recherche/fetch', 'AnnoncesController@fetch')->name('dynamicdependent.fetch');
+Route::get('/Client/recherche', 'AnnoncesController@date');
+Route::get('/Client/recherche', 'AnnoncesController@date');
 
-Route::get('/Client/json-city','AnnoncesController@city');
+Route::post('/Client/recherche', 'AnnoncesController@date');
+
+Route::get('/Client/city','AnnoncesController@city');
+Route::get('/Client/marque','AnnoncesController@marque');
+Route::get('/Client/type','AnnoncesController@type');
+Route::get('/Client/modele','AnnoncesController@modele');
+//Route::get('/Client/submit','AnnoncesController@submit');
+Route::get('/Client/resultat','AnnoncesController@submit');
 
 
+
+
+
+/*
 
 Route::get('/Client/rechercheDate', 'AnnoncesController@rechercheDate');
 Route::post('/Client/rechercheDate',  'AnnoncesController@rechercheDate');
-
+*/
 Route::get('/Client/resultat', 'AnnoncesController@resultat');
 Route::post('/Client/resultat', 'AnnoncesController@resultat');
 

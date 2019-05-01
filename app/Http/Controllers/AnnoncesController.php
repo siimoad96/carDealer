@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use DB;
 
 
@@ -14,170 +15,91 @@ class AnnoncesController extends Controller
 {
 
     
-    public function recherche(){
+    public function date(){
 
         
-        $annonce =Annonce::where([
-            ['privilege', '=', 0],
-             ]);
-        $annonces = DB::table('annonces')
-                ->groupBy('date')
-                ->get();
-        return view('Client.recherche')->with('annonces',$annonces);
+        $date =Annonce::where('privilege', '=', 0)
+        ->groupBy('date')->get();
+        return view('Client.recherche',compact('date'));
 
       }
-  
-      public function city(){
+   
+    public function city(){
         $date = Input::get('date');
-        $city = Annonce::where('date', '=', $date)->get();
+        $city = Annonce::where('date', '=', $date)
+        ->groupBy('city')->get();
         return response()->json($city);
       }
   
-      public function districts(){
+
+    public function marque(){
         $city = Input::get('city');
-        $districts = Districts::where('regency_id', '=', $regencies_id)->get();
-        return response()->json($districts);
-      }
-  
-      public function villages(){
-        $districts_id = Input::get('districts_id');
-        $villages = Villages::where('district_id', '=', $districts_id)->get();
-        return response()->json($villages);
-      }
-
-    /*
-    public function resultat(Request $request)
-    {
-       $request->input('marque');
-       $annonces = DB::table('annonces')->where([
-                        ['city', '=', $request->input('ville')],
-                        ['date', '=', $request->input('date')],
-                    ])->get();
-
-        return view('Client.resultat',['annonces' => $annonces]);
-
-}
-    public function reserverAnnonce(Request $request)
-        {
-            echo 'ok';
-            print_r($request->input('marque'));
-            //return view('Client.reserverAnnonce');
-
-        }
-
-
-
-    public function recherche()
-    {
-        $annonce =Annonce::where([
-            ['privilege', '=', 0],
-             ]);
-        $annonces = DB::table('annonces')
-                ->groupBy('date')
-                ->get();
-
-        return view('Client.recherche')->with('annonces',$annonces);
-
-    }
-
-    
-    function fetch(Request $request)
-    {
-        $select = $request->get('select');
-        $value = $request->get('value');
-        $dependent = $request->get('dependent');
-        $data = DB::table('annonces')
+        $marque =DB::table('annonces')
         ->join('voitures', 'annonces.voiture_id', '=', 'voitures.id')
-        ->where($select, $value)
-        ->groupBy($dependent)
-        ->get();
-        $output = '<option value="">Select '.ucfirst($dependent).'</option>';
-        foreach($data as $row)
-        {
-        $output .= '<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
-        }
-        echo $output;
-        }
+        ->where('city', '=', $city)
+        ->groupBy('marque')->get();
+        return response()->json($marque);
+      }
 
+
+         
+    public function type(){
+        $marque = Input::get('marque');
+        $voiture_id = Input::get('voiture_id');
+        $type = DB::table('annonces')
+        ->join('voitures', 'annonces.voiture_id', '=', 'voitures.id')
+        ->where('marque', '=', $marque)
+        ->groupBy('type')->get();
+        return response()->json($type);
+      }
+       
+    public function modele(){
+        $marque = Input::get('type');
+        $modele = DB::table('annonces')
+        ->join('voitures', 'annonces.voiture_id', '=', 'voitures.id')
+        ->where('type', '=', $marque)
+        ->groupBy('modele')->get();
+        return response()->json($modele);
+      }
+
+
+    public function submit(){
+        $city=Input::get('city');
+        $submit =DB::table('annonces')
+        ->join('voitures', 'annonces.voiture_id', '=', 'voitures.id')
+        ->where('city', '=', $city)
+        ->groupBy('marque')->get();
+        response()->json($submit); 
+        return view('Client.resultat','submit');
+      }
 /*
-    public function rechercheDate(Request $request)
-        {
-          
-            $annonce =Annonce::where([
-                ['privilege', '=', 0],
-                ['date', '=', $request->input('date')], ]);
-            $annonces = Annonce::orderBy('city','ASC')->get();
-
-            $ville = Annonce::select('city')->groupBy('city');
-            $villes=$ville->get();
-
-            $joint = DB::table('annonces')
-            ->join('voitures', 'annonces.voiture_id', '=', 'voitures.id')
-            ->select('annonces.*','voitures.marque','voitures.type','voitures.modele')
-            ->where([
-                ['privilege', '=', 0],
-                ['date', '=', $request->input('date')]]);
-            
-                
-            $modele=$joint->groupBy('modele');
-            $modeles=$modele->get();
-
-            $jointMarque = DB::table('annonces')
-            ->join('voitures', 'annonces.voiture_id', '=', 'voitures.id')
-            ->select('annonces.*','voitures.marque','voitures.type','voitures.modele')
-            ->where([
-                ['privilege', '=', 0],
-                ['date', '=', $request->input('date')]]);
-
-            $marque=$jointMarque->groupBy('marque');
-            $marques=$marque->get();
-
-
-            $type=$jointMarque->groupBy('type');
-            $types=$type->get();
-
-            $title = 'Rechercher une annonce';
-        return view('Client.rechercheDate')
-                ->with('title', $title)
-                ->with(compact('annonces', 'annonces'))
-                ->with(compact('villes','ville'))
-                ->with(compact('marques','marque'))
-                ->with(compact('modeles','modele'))
-                ->with(compact('types','type'));
-        }
-*/
-
-
-
-
         public function resultat(Request $request)
     {
-        $request->input('marque');
-        $annonces = DB::table('annonces')->where([
-                        ['city', '=', $request->input('ville')],
-                        ['date', '=', $request->input('date')],
-                     ])->get();
+        $annonces = DB::table('annonces')
+                ->where('date', '=', $request->input('date'))
+                ->orwhere([['date', '=', $request->input('date')],['city', '=', $request->input('city')]])
+                ->orwhere([['date', '=', $request->input('date')],
+                            ['city', '=', $request->input('city')],
+                            ['marque', '=', $request->input('marque')]])
+                ->orwhere([['date', '=', $request->input('date')],
+                            ['city', '=', $request->input('city')],
+                            ['marque', '=', $request->input('marque')],
+                            ['type', '=', $request->input('type')]])
+                            
+                ->orwhere([['date', '=', $request->input('date')],
+                            ['city', '=', $request->input('city')],
+                            ['marque', '=', $request->input('marque')],
+                            ['type', '=', $request->input('type')],
+                            ['modele', '=', $request->input('modele')]])
+
+                ->get();
  
          return view('Client.resultat',['annonces' => $annonces]);
 
         }
-        /*
-        $annonces = DB::table('annonces')
-        
-        ->orwhere('city', '=', $request->input('ville'))
-        ->orWhere('voiture_id', $request->input('voiture_id'))
-        ->get();
 
-    public function resultat(Request $request)
-        {
-            $request->input('marque');
-            $annonces = DB::table('annonces')->where([
-                            ['city', '=', $request->input('ville')],
-                        ])->get();
-    
-            return view('Client.resultat',['annonces' => $annonces]);
-        }
-    */
+        */
+ 
 public function reserverAnnonce(Request $request)
         {
             $reservations = DB::table('annonces')
